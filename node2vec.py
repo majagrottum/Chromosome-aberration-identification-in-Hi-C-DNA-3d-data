@@ -5,7 +5,7 @@ import networkx as nx
 from node2vec import Node2Vec
 
 
-# node2vec parameters
+# Defining the node2vec parameters
 
 D = 10
 P = 1
@@ -51,29 +51,29 @@ embeddings_cancer = []
 
 for G in graphs_healthy:
 
-    # Precompute probabilities and generate walks - **ON WINDOWS ONLY WORKS WITH workers=1**
+    # Precomputing probabilities and generating walks - **ON WINDOWS ONLY WORKS WITH workers=1**
 
     node2vec_healthy = Node2Vec(G, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=6, p=P, q=Q)  # Use temp_folder for big graphs
 
-    # Generate the node embeddings
+    # Generating the node embeddings
 
     model_healthy = node2vec_healthy.fit(window=10, min_count=1, batch_words=4)  # Any keywords acceptable by gensim.Word2Vec can be passed, `dimensions` and `workers` are automatically passed (from the Node2Vec constructor)
 
-    # Retrieve the node embeddings
+    # Retrieving the node embeddings
 
     embeddings_healthy.append(model_healthy.wv.vectors)
     
 for G in graphs_cancer:
 
-    # Precompute probabilities and generate walks - **ON WINDOWS ONLY WORKS WITH workers=1**
+    # Precomputing probabilities and generating walks - **ON WINDOWS ONLY WORKS WITH workers=1**
 
     node2vec_cancer = Node2Vec(G, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=6, p=P, q=Q)  # Use temp_folder for big graphs
 
-    # Generate the node embeddings
+    # Generating the node embeddings
 
     model_cancer = node2vec_cancer.fit(window=10, min_count=1, batch_words=4)  # Any keywords acceptable by gensim.Word2Vec can be passed, `dimensions` and `workers` are automatically passed (from the Node2Vec constructor)
 
-    # Retrieve the node embeddings
+    # Retrieving the node embeddings
 
     embeddings_cancer.append(model_cancer.wv.vectors)
 
