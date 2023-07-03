@@ -80,7 +80,7 @@ model_c = node2vec_c.fit(window=10, min_count=1, batch_words=4)
 # model.wv.vectors epresents the embeddings as a two-dimensional array, where each row corresponds to the embedding vector of a specific node.
 # For example, you can retrieve the embedding vector of a specific node using model.wv.vectors[node_index], where node_index is the numeric index of the node (0-based index).
 
-embedding_h = model_h.wv.vectors)
+embedding_h = model_h.wv.vectors
 
 embedding_c = model_c.wv.vectors
     
