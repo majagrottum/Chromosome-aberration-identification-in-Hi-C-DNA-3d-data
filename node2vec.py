@@ -59,9 +59,9 @@ WL = 300
 # from_numpy_matrix(A, create_using=None)returns a graph from numpy matrix.
 # The numpy matrix is interpreted as an adjacency matrix for the graph.
 
-G_h = nx.from_numpy_matrix(amh_final, create_using=nx.DiGraph())
+G_h = nx.from_numpy_matrix(amh_final, create_using=nx.Graph())
     
-G_c = nx.from_numpy_matrix(amc_final, create_using=nx.DiGraph())
+G_c = nx.from_numpy_matrix(amc_final, create_using=nx.Graph())
 
 
 # Precomputing probabilities and generating walks 
