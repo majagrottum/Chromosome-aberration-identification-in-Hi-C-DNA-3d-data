@@ -4,12 +4,18 @@ import networkx as nx
 
 from node2vec import Node2Vec
 
+# Importing the community module in the python-louvain package (for the community embedding)
+
+import community
+
 
 # Retrieving the adjacency matrices from the .txt files
 
 adjacency_matrix_h = np.loadtxt('healthy_hic (1).txt', delimiter=',')
 
 adjacency_matrix_c = np.loadtxt('cancer_hic (1).txt', delimiter=',')
+
+
 
 # Calculating the row and column sums of the adjacency matrices
 # A 2-dimensional array has two corresponding axes: the first running vertically downwards across rows (axis 0), and the second running horizontally across columns (axis 1).
@@ -44,9 +50,14 @@ amh_final = np.delete(np.delete(adjacency_matrix_h, isolated_rows_h, axis=0), is
 amc_final = np.delete(np.delete(adjacency_matrix_c, isolated_rows_c, axis=0), isolated_columns_c, axis=1)
 
 
+
+
 # Setting the indices corresponding to the nodes of the different chromosomes
 
 dataset_indices = [(0, 249), (250, 421), (422, 577), (578, 713), (714, 777)]
+
+
+
 
 # Defining the node2vec parameters
 
@@ -55,6 +66,9 @@ P = 1
 Q = 0.5
 WL = 300
 
+
+
+
 # Creating the different network graphs corresponding to each cell line (healthy/cancer)
 # from_numpy_matrix(A, create_using=None)returns a graph from numpy matrix.
 # The numpy matrix is interpreted as an adjacency matrix for the graph.
@@ -62,6 +76,9 @@ WL = 300
 G_h = nx.from_numpy_matrix(amh_final, create_using=nx.Graph())
     
 G_c = nx.from_numpy_matrix(amc_final, create_using=nx.Graph())
+
+
+
 
 # Below follows the node2vec algorithm, which should be run separately (at separate times) for the two cell lines due to the analysis being heavy in terms of computational cost
 
@@ -104,4 +121,45 @@ embedding_c = model_c.wv.vectors
 # np.savetxt() will save the file in the current working directory, which is the directory where your Python script or Jupyter Notebook is running
 
 np.savetxt("embedding_c.txt", embedding_c, delimiter=" ")
+
+
+
     
+
+# Below follows the community embedding of the networks of the two cell lines using Louvain Community Detection
+# First for the healthy cell line, then for the cancer cell line
+
+# Retrieving the community label of each node for the healthy cell line
+
+# Computing the partition using Louvain community detection
+# The partition dictionary will contain the community assignments for each node in the graph
+
+partition_h = community.best_partition(G_h, weight='weight')
+
+# Converting the community_assignments dictionary to a numpy array
+# Each tuple from partition_h.items() consists of a node as the key and its corresponding community label as the value.
+# The resulting array will have each tuple as a row, where the first column contains the node and the second column contains the community label.
+
+communities_h = np.array(list(partition_h.items()))
+
+# The resulting text file will have each node and its community label on a separate line, separated by a space.
+
+np.savetxt('communities_h.txt', communities_h, delimiter=' ', fmt='%s')
+
+
+# Retrieving the community label of each node for the cancer cell line
+
+# Computing the partition using Louvain community detection
+# The partition dictionary will contain the community assignments for each node in the graph
+
+partition_c = community.best_partition(G_c, weight='weight')
+
+# Converting the community_assignments dictionary to a numpy array
+# Each tuple from partition_h.items() consists of a node as the key and its corresponding community label as the value.
+# The resulting array will have each tuple as a row, where the first column contains the node and the second column contains the community label.
+
+communities_c = np.array(list(partition_c.items()))
+
+# The resulting text file will have each node and its community label on a separate line, separated by a space.
+
+np.savetxt('communities_c.txt', communities_c, delimiter=' ', fmt='%s')
