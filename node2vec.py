@@ -63,24 +63,45 @@ G_h = nx.from_numpy_matrix(amh_final, create_using=nx.Graph())
     
 G_c = nx.from_numpy_matrix(amc_final, create_using=nx.Graph())
 
+# Below follows the node2vec algorithm, which should be run separately (at separate times) for the two cell lines due to the analysis being heavy in terms of computational cost
 
-# Precomputing probabilities and generating walks 
+# Precomputing probabilities and generating walks for the healthy cell line
+# Number of workers is set equal to number of CPU cores on my laptop
 
-node2vec_h = Node2Vec(G_h, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=6, p=P, q=Q)  
+node2vec_h = Node2Vec(G_h, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=2, p=P, q=Q)  
 
-node2vec_c = Node2Vec(G_c, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=6, p=P, q=Q) 
+# Generating the node embedding for the healthy cell line
 
-# Generating the node embeddings
+model_h = node2vec_h.fit(window=10, min_count=1, batch_words=4)
 
-model_h = node2vec_h.fit(window=10, min_count=1, batch_words=4)  
-
-model_c = node2vec_c.fit(window=10, min_count=1, batch_words=4) 
-
-# Retrieving the node embeddings
+# Retrieving the node embedding for the healthy cell line
 # model.wv.vectors epresents the embeddings as a two-dimensional array, where each row corresponds to the embedding vector of a specific node.
 # For example, you can retrieve the embedding vector of a specific node using model.wv.vectors[node_index], where node_index is the numeric index of the node (0-based index).
 
 embedding_h = model_h.wv.vectors
 
+# The embeddings will be saved in the txt file in a space-separated format, with each row representing the embedding vector of a specific node
+# np.savetxt() will save the file in the current working directory, which is the directory where your Python script or Jupyter Notebook is running
+
+np.savetxt("embedding_h.txt", embedding_h, delimiter=" ")
+
+# Precomputing probabilities and generating walks for the cancer cell line
+# Number of workers is set equal to number of CPU cores on my laptop
+
+node2vec_c = Node2Vec(G_c, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=2, p=P, q=Q) 
+
+# Generating the node embedding for the cancer cell line
+
+model_c = node2vec_c.fit(window=10, min_count=1, batch_words=4) 
+
+# Retrieving the node embedding for the cancer cell line
+# model.wv.vectors epresents the embeddings as a two-dimensional array, where each row corresponds to the embedding vector of a specific node.
+# For example, you can retrieve the embedding vector of a specific node using model.wv.vectors[node_index], where node_index is the numeric index of the node (0-based index).
+
 embedding_c = model_c.wv.vectors
+
+# The embeddings will be saved in the txt file in a space-separated format, with each row representing the embedding vector of a specific node
+# np.savetxt() will save the file in the current working directory, which is the directory where your Python script or Jupyter Notebook is running
+
+np.savetxt("embedding_c.txt", embedding_c, delimiter=" ")
     
