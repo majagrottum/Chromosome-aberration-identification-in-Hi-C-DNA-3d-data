@@ -66,9 +66,9 @@ G_c = nx.from_numpy_matrix(amc_final, create_using=nx.Graph())
 # Below follows the node2vec algorithm, which should be run separately (at separate times) for the two cell lines due to the analysis being heavy in terms of computational cost
 
 # Precomputing probabilities and generating walks for the healthy cell line
-# Number of workers is set equal to number of CPU cores on my laptop
+# Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on my laptop which is 2
 
-node2vec_h = Node2Vec(G_h, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=2, p=P, q=Q)  
+node2vec_h = Node2Vec(G_h, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=1, p=P, q=Q)  
 
 # Generating the node embedding for the healthy cell line
 
@@ -86,9 +86,9 @@ embedding_h = model_h.wv.vectors
 np.savetxt("embedding_h.txt", embedding_h, delimiter=" ")
 
 # Precomputing probabilities and generating walks for the cancer cell line
-# Number of workers is set equal to number of CPU cores on my laptop
+# Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on my laptop which is 2
 
-node2vec_c = Node2Vec(G_c, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=2, p=P, q=Q) 
+node2vec_c = Node2Vec(G_c, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=1, p=P, q=Q) 
 
 # Generating the node embedding for the cancer cell line
 
