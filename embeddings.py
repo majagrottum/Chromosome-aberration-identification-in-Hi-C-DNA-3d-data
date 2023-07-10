@@ -20,9 +20,9 @@ adjacency_matrix_c = np.loadtxt('cancer_hic (1).txt', delimiter=',')
 # from_numpy_matrix(A, create_using=None)returns a graph from numpy matrix.
 # The numpy matrix is interpreted as an adjacency matrix for the graph.
 
-G_h = nx.from_numpy_matrix(amh_final, create_using=nx.Graph())
+G_h = nx.from_numpy_matrix(adjacency_matrix_h, create_using=nx.Graph())
     
-G_c = nx.from_numpy_matrix(amc_final, create_using=nx.Graph())
+G_c = nx.from_numpy_matrix(adjacency_matrix_c, create_using=nx.Graph())
 
 
 # Before applying node2vec i remove the isolated nodes from the networks (rows/columns with zero sum)
