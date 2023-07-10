@@ -90,16 +90,18 @@ np.savetxt("embedding_c.txt", embedding_c, delimiter=" ")
 
 
     
-
 # Below follows the community embedding of the networks of the two cell lines using Louvain Community Detection
 # First for the healthy cell line, then for the cancer cell line
+
 
 # Retrieving the community label of each node for the healthy cell line
 
 # Computing the partition using Louvain community detection
 # The partition dictionary will contain the community assignments for each node in the graph
+# The resolution parameter will change the size of the communities
+# By setting the random_state parameter to the same value each time you run the algorithm, you should obtain the same community assignments
 
-partition_h = community.best_partition(G_h, weight='weight')
+partition_h = community.best_partition(G_h, weight='weight', resolution = 1, random_state = 0))
 
 # Converting the community_assignments dictionary to a numpy array
 # Each tuple from partition_h.items() consists of a node as the key and its corresponding community label as the value.
@@ -116,8 +118,10 @@ np.savetxt('communities_h.txt', communities_h, delimiter=' ', fmt='%s')
 
 # Computing the partition using Louvain community detection
 # The partition dictionary will contain the community assignments for each node in the graph
+# The resolution parameter will change the size of the communities
+# By setting the random_state parameter to the same value each time you run the algorithm, you should obtain the same community assignments
 
-partition_c = community.best_partition(G_c, weight='weight')
+partition_c = community.best_partition(G_c, weight='weight', resolution = 1, random_state = 0)
 
 # Converting the community_assignments dictionary to a numpy array
 # Each tuple from partition_h.items() consists of a node as the key and its corresponding community label as the value.
