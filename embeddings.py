@@ -16,57 +16,6 @@ adjacency_matrix_h = np.loadtxt('healthy_hic (1).txt', delimiter=',')
 adjacency_matrix_c = np.loadtxt('cancer_hic (1).txt', delimiter=',')
 
 
-
-# Calculating the row and column sums of the adjacency matrices
-# A 2-dimensional array has two corresponding axes: the first running vertically downwards across rows (axis 0), and the second running horizontally across columns (axis 1).
-# Returns an array where the values are the sums of each row/coloumn
-    
-row_sums_h = np.sum(adjacency_matrix_h, axis=1)
-    
-column_sums_h = np.sum(adjacency_matrix_h, axis=0)
-    
-row_sums_c = np.sum(adjacency_matrix_c, axis=1)
-    
-column_sums_c = np.sum(adjacency_matrix_c, axis=0)
-
-# Identifying the isolated nodes (rows/columns with zero sum)
-# np.where(row_sums_h == 0) returns an array of lists of indices where the conditions are met
-# np.where(row_sums_h == 0)[0] thus means that you want the first value in the array, which is a list, and which contains the list of indices of condition-meeting cells.
-    
-isolated_rows_h = np.where(row_sums_h == 0)[0]
-    
-isolated_columns_h = np.where(column_sums_h == 0)[0]
-    
-isolated_rows_c = np.where(row_sums_c == 0)[0]
-    
-isolated_columns_c = np.where(column_sums_c == 0)[0]
-
-# Removing the isolated rows and columns from the adjacency matrices
-# In the case of a two-dimensional array, using np.delete(), the row is the first dimension (axis=0), and the column is the second dimension (axis=1).
-# Multiple rows and columns can be deleted at once by specifying a list or a slice in the second parameter 
-
-amh_final = np.delete(np.delete(adjacency_matrix_h, isolated_rows_h, axis=0), isolated_columns_h, axis=1)
-    
-amc_final = np.delete(np.delete(adjacency_matrix_c, isolated_rows_c, axis=0), isolated_columns_c, axis=1)
-
-
-
-
-
-
-
-
-
-# Defining the node2vec parameters
-
-D = 10
-P = 1
-Q = 0.5
-WL = 300
-
-
-
-
 # Creating the different network graphs corresponding to each cell line (healthy/cancer)
 # from_numpy_matrix(A, create_using=None)returns a graph from numpy matrix.
 # The numpy matrix is interpreted as an adjacency matrix for the graph.
@@ -76,9 +25,26 @@ G_h = nx.from_numpy_matrix(amh_final, create_using=nx.Graph())
 G_c = nx.from_numpy_matrix(amc_final, create_using=nx.Graph())
 
 
+# Before applying node2vec i remove the isolated nodes from the networks (rows/columns with zero sum)
+
+# list(nx.isolates(G)) is a list of all isolated nodes
+
+G_h.remove_nodes_from(list(nx.isolates(G_h)))
+
+G_c.remove_nodes_from(list(nx.isolates(G_c)))
+
 
 
 # Below follows the node2vec algorithm, which should be run separately (at separate times) for the two cell lines due to the analysis being heavy in terms of computational cost
+
+
+# Defining the node2vec parameters
+
+D = 10
+P = 1
+Q = 0.5
+WL = 300
+
 
 # Precomputing probabilities and generating walks for the healthy cell line
 # Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on my laptop which is 2
@@ -99,6 +65,7 @@ embedding_h = model_h.wv.vectors
 # np.savetxt() will save the file in the current working directory, which is the directory where your Python script or Jupyter Notebook is running
 
 np.savetxt("embedding_h.txt", embedding_h, delimiter=" ")
+
 
 # Precomputing probabilities and generating walks for the cancer cell line
 # Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on my laptop which is 2
