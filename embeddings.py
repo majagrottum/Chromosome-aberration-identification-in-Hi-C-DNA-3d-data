@@ -52,9 +52,7 @@ amc_final = np.delete(np.delete(adjacency_matrix_c, isolated_rows_c, axis=0), is
 
 
 
-# Setting the indices corresponding to the nodes of the different chromosomes
 
-dataset_indices = [(0, 249), (250, 421), (422, 577), (578, 713), (714, 777)]
 
 
 
