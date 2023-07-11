@@ -16,6 +16,10 @@ import hdbscan
 
 from sklearn.decomposition import PCA
 
+# Importing necessary library to create the 2D plots of the transformed (through PCA) embeddings
+
+import matplotlib.pyplot as plt
+
 
 # Retrieving the adjacency matrices from the .txt files
 
@@ -335,4 +339,60 @@ transformed_community_embedding_h = principal_component_analysis(community_embed
 # For the cancer cell line
 
 transformed_community_embedding_c = principal_component_analysis(community_embeddings_c)
+
+
+
+
+
+# PCA was applied on both embedding vectors to visualize them in 2D
+# We then use the cluster/chromosome label of each segment to color it 
+
+# Defining a function to create a 2D plot of the transformed embeddings from PCA colored with cluster/chromosome labels
+
+def plot_labels(PCA_embedding, labels, embedding_type, cell_line, label_type):
+
+    # Creating a scatter plot
+    # PCA_embedding[:, 0] represents the values of the first principal component, and PCA_embedding[:, 1] represents the values of the second principal component. 
+    # The c parameter is set to labels, which assigns a different color to each unique cluster/chromosome label.
+
+    plt.scatter(PCA_embedding[:, 0], PCA_embedding[:, 1], c=labels)
+
+    # Adding labels and title
+    
+    plt.xlabel('Principal Component 1')
+    plt.ylabel('Principal Component 2')
+    plt.title('Transformed ' + embedding_type + ' Embeddings with ' + label_type + ' Labels for the ' + cell_line)
+
+    # Adding a colorbar
+    
+    colorbar = plt.colorbar()
+    colorbar.set_label(label_type + ' Label')
+
+    # Displaying the plot
+    
+    plt.show()
+
+
+# Making the 2D plots of the transformed node embeddings
+
+# For the healthy cell line
+
+plot_labels(transformed_node_embedding_h, labels_h, 'Node', 'Healthy Cell Line', 'Cluster')
+
+# For the cancer cell line
+
+plot_labels(transformed_node_embedding_c, labels_c, 'Node', 'Cancer Cell Line', 'Cluster')
+
+
+# Making the 2D plots of the transformed community embeddings
+
+# For the healthy cell line
+
+plot_labels(transformed_community_embedding_h, labels_community_h, 'Community', 'Healthy Cell Line', 'Cluster')
+
+# For the cancer cell line
+
+plot_labels(transformed_community_embedding_c, labels_community_c, 'Community', 'Cancer Cell Line', 'Cluster')
+
+
 
