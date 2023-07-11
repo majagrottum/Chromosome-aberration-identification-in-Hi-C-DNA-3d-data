@@ -12,6 +12,10 @@ import community
 
 import hdbscan
 
+# Importing PCA for dimensionality reduction
+
+from sklearn.decomposition import PCA
+
 
 # Retrieving the adjacency matrices from the .txt files
 
@@ -278,4 +282,57 @@ clusterer_community_h, labels_community_h, num_clusters_community_h = clustering
 
 clusterer_community_c, labels_community_c, num_clusters_community_c = clustering_HDBSCAN(community_embeddings_c)
 
+
+
+
+# The goal now is to compare the two embeddings, so a possible idea is to confront the clusters obtained in the two manifolds/spaces. 
+# This can be done by mapping the node embeddings and community embeddings onto the same space or manifold. 
+# Dimensionality reduction techniques like PCA can be used to project the node embeddings and community embeddings into a common low-dimensional space for visualization and comparison.
+
+# In Principal Component Analysis (PCA) the idea is that data are projected on the first 2 eigenvectors of the covariance matrix, so on the directions which allow most of the variance in the data to be represented.
+
+# Defining a function to perform PCA
+
+def principal_component_analysis(embedding):
+
+    # Creating the PCA Object
+    # n_components represents the desired number of principal components to retain
+    # we want a bidimensional map
+    # n_components=2 means that you are considering the first two eigenvectors (with largest eigenvalues) of the covariance matrix and taking for each point the value of the first eigenvector as X and the value of the second as Y. 
+
+    pca = PCA(n_components=2)
+
+    # Fitting the PCA Model
+
+    pca.fit(embedding)
+    
+    # Transforming the data
+    # The transform method will project the embeddings onto the principal components, resulting in the transformed embeddings.
+    
+    transformed_embedding = pca.transform(embedding)
+    
+    return transformed_embedding
+
+
+# Retrieving the transformed embeddings from the PCA of the node embeddings
+
+# For the healthy cell line
+
+transformed_node_embedding_h = principal_component_analysis(embedding_h)
+
+# For the cancer cell line
+
+transformed_node_embedding_c = principal_component_analysis(embedding_c)
+
+
+
+# Retrieving the transformed embeddings from the PCA of the community embeddings
+
+# For the healthy cell line
+
+transformed_community_embedding_h = principal_component_analysis(community_embeddings_h)
+
+# For the cancer cell line
+
+transformed_community_embedding_c = principal_component_analysis(community_embeddings_c)
 
