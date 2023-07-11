@@ -121,3 +121,97 @@ partition_h, communities_h = community_label(G_h, 'communities_h.txt')
 partition_c, communities_c = community_label(G_c, 'communities_c.txt')
 
 
+# Community embedding is the vector that has in each element the number/fraction of first neighbors being in a community (first element for neighbours in community 1, second element for com 2, etc).
+# Suppose node X has 10 neighbours: 5 in community A, 3 in community B, 0 in community C, 2 in community D. 
+# Then the embedding for node X is [0.5, 0.3, 0, 0.2, 0, ..., 0] (long as the number of communities in the network)
+
+# In this fully connected network, each node has all the other nodes as first neighbours
+# We should use a threshold in weights to select who are the real neighbors
+
+threshold_weights = 10000
+
+
+# Defining a function for the community embedding of the networks
+
+def community_embedding(partition, threshold, communities, graph, file_name):
+    
+    # Retrieving the number of communities
+
+    unique_communities = (np.unique(list(partition.values()))).tolist()
+
+    num_communities = len(unique_communities)
+
+
+    # Creating an empty array for the community embeddings
+
+    community_embeddings = []
+    
+    for node, community in communities:
+
+        neighbors = []
+
+        for neighbor in graph.neighbors(node):
+
+            # Find neighbors above the weight threshold
+
+            if graph[node][neighbor]['weight'] > threshold:
+
+                neighbors.append(neighbor)
+
+        # Creating array for counts of the different communities
+
+        community_counts = [0] * num_communities
+
+        for n in neighbors:
+
+            # Getting the community of a specific neighbor node
+
+            community_neighbor = partition[n]
+
+            community_index = unique_communities.index(community_neighbor)
+
+            community_counts[community_index] += 1
+
+        # Calculating the number of neighbors
+
+        num_neighbors = len(neighbors)
+        
+        if num_neighbors > 0:
+            
+            # Creating an empty array for the community embedding of the node
+
+            embedding_node = [] * num_communities
+
+            for count in community_counts:
+
+                embedding_node.append(count/len(neighbors))
+                
+        else:
+            
+            # Creating an empty array for the community embedding of the node
+
+            embedding_node = [0.0] * num_communities
+            
+            
+        community_embeddings.append(embedding_node)
+        
+        # The embeddings will be saved in the txt file in a space-separated format, with each row representing the embedding vector of a specific node
+        # np.savetxt() will save the file in the current working directory, which is the directory where your Python script or Jupyter Notebook is running
+
+        np.savetxt(file_name, community_embeddings, delimiter=" ", fmt='%s')
+        
+    return community_embeddings
+
+
+
+# Retrieving the community embedding for the healthy cell line
+
+community_embeddings_h = community_embedding(partition_h, threshold_weights, communities_h, G_h, 'community_embeddings_h.txt')
+
+
+# Retrieving the community embedding for the cancer cell line
+
+community_embeddings_c = community_embedding(partition_c, threshold_weights, communities_c, G_c, 'community_embeddings_c.txt')
+
+
+
