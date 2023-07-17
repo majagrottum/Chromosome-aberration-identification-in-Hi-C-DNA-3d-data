@@ -146,16 +146,10 @@ def node_embeddings(graph, file_name):
     
     model = node2vec.fit(window=10, min_count=1, batch_words=4)
     
-    # Retrieving the node embedding 
-    # model.wv.vectors epresents the embeddings as a two-dimensional array, where each row corresponds to the embedding vector of a specific node.
-    # For example, you can retrieve the embedding vector of a specific node using model.wv.vectors[node_index], where node_index is the numeric index of the node (0-based index).
-    
-    embedding = model.wv.vectors
-    
-    # The embeddings will be saved in the txt file in a space-separated format, with each row representing the embedding vector of a specific node
-    # np.savetxt() will save the file in the current working directory, which is the directory where your Python script or Jupyter Notebook is running
-    
-    np.savetxt(file_name, embedding, delimiter=" ")
+    # Saving embeddings for later use
+    # Each row in the txt file corresponds to one node, the first column corresponds to the index of the node within the network, and then follows the 10 coordinates of that node
+      
+    model.wv.save_word2vec_format(file_name)
 
     return embedding
 
