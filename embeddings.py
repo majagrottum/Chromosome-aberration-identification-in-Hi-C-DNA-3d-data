@@ -103,6 +103,25 @@ def new_indices(mapping, graph, old_indices):
     return new_dataset_indices
 
 
+# Creating a function that returns a list of the corresponding label of each node according to the different chromosomes
+
+def labels_chromosomes(dataset, label_mapping):
+
+    chromosome_labels = []
+    
+    for i, (start, end) in enumerate(dataset):
+
+        # The first argument passed to get() is the key i that is being looked up in the dictionary.
+        # The second argument passed to get() is a default value that will be returned if the key i is not found in the dictionary.
+        # If the key i is not found in the label_mapping dictionary, the default value i itself will be assigned to the label variable. 
+       
+        label = label_mapping.get(i, i)
+
+        chromosome_labels += ([label] * (end - start + 1))
+        
+    return chromosome_labels
+
+
 
 # Below follows the node2vec algorithm, which should be run separately (at separate times) for the two cell lines due to the analysis being heavy in terms of computational cost
 
