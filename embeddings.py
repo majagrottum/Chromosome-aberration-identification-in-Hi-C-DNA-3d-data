@@ -154,14 +154,44 @@ def node_embeddings(graph, file_name):
     return embedding
 
 
-# Retrieving the node embeddings for the healthy cell line
+# Defining a function to retrieve node embeddings from txt files
 
-embedding_h = node_embeddings(G_h, "embedding_h.txt")
+def embedding_dictionary(file_name):
+    
+    with open(file_name, "r") as file:
+        
+        # Skipping the first line, as this is just telling us that the embedding is composed of 749 nodes, each one characterized by 10 coordinates
+        
+        file.readline()
+        
+        # Read the contents of the file
 
+        content = file.readlines()
+        
+    data = {}
+    
+    for line in content:
+        
+        elements = line.split()
 
-# Retrieving the node embeddings for the cancer cell line
+        label = int(elements[0])
+        
+        coordinates = []
+        
+        for c in elements[1:]:
+            
+                coordinates.append(float(c))
 
-embedding_c = node_embeddings(G_c, "embedding_c.txt")
+        data[label] = coordinates
+        
+    # Using the sorted() function to sort the items in the dictionary based on the keys. 
+    # The lambda function lambda x: x[0] specifies that the sorting should be done based on the first element (x[0]) of each key-value pair.
+    # The sorted() function returns a list of sorted key-value pairs, which we then convert back into a dictionary using the dict() function. 
+    # The resulting sorted_data dictionary will have the keys sorted in increasing order.
+    
+    sorted_data = dict(sorted(data.items(), key=lambda x: x[0]))
+    
+    return sorted_data
 
 
 
