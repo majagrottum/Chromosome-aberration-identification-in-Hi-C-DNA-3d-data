@@ -37,13 +37,70 @@ G_h = nx.from_numpy_matrix(adjacency_matrix_h, create_using=nx.Graph())
 G_c = nx.from_numpy_matrix(adjacency_matrix_c, create_using=nx.Graph())
 
 
-# Before applying node2vec i remove the isolated nodes from the networks (rows/columns with zero sum)
+# I then remove the isolated nodes from the networks (rows/columns with zero sum)
 
 # list(nx.isolates(G)) is a list of all isolated nodes
 
 G_h.remove_nodes_from(list(nx.isolates(G_h)))
 
 G_c.remove_nodes_from(list(nx.isolates(G_c)))
+
+
+# Creating a function that maps the old indices into the new ones after having removed the isolated nodes from the network
+
+def create_node_mapping(remaining_nodes):
+    
+    mapping = {}
+    
+    for i, node in enumerate(remaining_nodes):
+        
+        mapping[node] = i
+        
+    return mapping
+
+# Creating a function to retrieve the new index of a node 
+
+def get_new_node_index(mapping, old_index):
+    
+    try:
+        
+        return mapping[old_index]
+    
+    except KeyError:
+        
+        # Key not found in mapping, find the closest higher key
+        # finds the smallest key in the mapping dictionary that is greater than the given key
+        
+        closest_higher_key = min(filter(lambda x: x > old_index, mapping.keys()))
+        
+        return mapping[closest_higher_key]
+
+
+# Retrieving the new indices corresponding to the start and end nodes of the different chromosomes
+
+def new_indices(mapping, graph, old_indices):
+
+    # Creating a list with the new indices corresponding to the different chromosomes
+
+    new_dataset_indices = []
+    
+    for start, end in old_indices:
+        
+        new_start = get_new_node_index(mapping, start)
+        
+        if end != old_indices[-1][1]:
+            
+            new_end = get_new_node_index(mapping, end)
+            
+        else:
+            
+            new_end = len(list(graph.nodes))-1
+        
+    
+        new_dataset_indices.append((new_start, new_end))
+
+        
+    return new_dataset_indices
 
 
 
