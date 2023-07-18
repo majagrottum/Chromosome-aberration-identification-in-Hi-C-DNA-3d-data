@@ -303,7 +303,7 @@ def principal_component_analysis(embedding):
 
 # Defining a function to create a 2D plot of the transformed embeddings from PCA colored with cluster labels
 
-def plot_cluster_labels(PCA_embedding, labels, cell_line):
+def plot_cluster_labels(PCA_embedding, labels):
     
     # Creating a scatter plot
     # PCA_embedding[:, 0] represents the values of the first principal component, and PCA_embedding[:, 1] represents the values of the second principal component. 
@@ -315,7 +315,7 @@ def plot_cluster_labels(PCA_embedding, labels, cell_line):
     
     plt.xlabel('Principal Component 1')
     plt.ylabel('Principal Component 2')
-    plt.title('Transformed Node Embeddings with Cluster Labels for the ' + cell_line)
+    plt.title('Transformed Node Embeddings with Cluster Labels')
 
     # Adding a colorbar
     
