@@ -4,10 +4,6 @@ import networkx as nx
 
 from node2vec import Node2Vec
 
-# Importing the community module in the python-louvain package 
-
-import community
-
 # Importing HDBSCAN for clustering
 
 import hdbscan
@@ -161,17 +157,11 @@ def nodes_labeled_as_chromosomes(dataset_indices, label_mapping):
 
 
 
-# Defining a function to retrieve the community label of each node of the network using Louvain community detection
 
-def community_label(graph):
 
-    # The partition dictionary will contain the community assignments for each node in the graph (key = node, value = community label)
-    # The resolution parameter will change the size of the communities
-    # By setting the random_state parameter to the same value each time you run the algorithm, you should obtain the same community assignments
-    
-    partition = community.best_partition(graph, weight='weight', resolution = 1, random_state = 0))
-    
-    return partition
+
+
+
 
 
 
