@@ -21,11 +21,16 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
 
-# Retrieving the adjacency matrices from the .txt files
+# Defining a function to retrieve an adjacency matrix from a .txt file
+# The filename is the name of the file in string format
+# splitting defines how the values in the file are separated, e.g. comma separated values: ','
 
-adjacency_matrix_h = np.loadtxt('healthy_hic (1).txt', delimiter=',')
+def adjacency_matrix_from_file(filename, splitting):
 
-adjacency_matrix_c = np.loadtxt('cancer_hic (1).txt', delimiter=',')
+    adjacency_matrix = np.loadtxt(filename, delimiter = splitting)
+
+    return adjacency_matrix
+
 
 
 # Creating the different network graphs corresponding to each cell line (healthy/cancer)
