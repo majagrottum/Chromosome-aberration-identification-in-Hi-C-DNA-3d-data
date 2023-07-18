@@ -187,13 +187,13 @@ def node_embeddings(graph, file_name):
 
     
 
-# Defining a function to retrieve node embeddings from txt files
+# Defining a function to retrieve node embeddings from a txt file
 
 def embedding_dictionary(file_name):
     
     with open(file_name, "r") as file:
         
-        # Skipping the first line, as this is just telling us that the embedding is composed of 749 nodes, each one characterized by 10 coordinates
+        # Skipping the first line, as this is just telling us that the embedding is composed of x number of nodes, each one characterized by y coordinates
         
         file.readline()
         
@@ -204,16 +204,24 @@ def embedding_dictionary(file_name):
     data = {}
     
     for line in content:
+
+        # Separating each line in the file based on the separator (here being space)
         
         elements = line.split()
 
+        # Finding the node 
+
         label = int(elements[0])
+
+        # Making a list for the embeddings
         
         coordinates = []
         
         for c in elements[1:]:
             
                 coordinates.append(float(c))
+
+        # The dictionary data then contains the nodes as keys and their embeddings (in a list) as values
 
         data[label] = coordinates
         
