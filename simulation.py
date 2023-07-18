@@ -328,6 +328,53 @@ def plot_cluster_labels(PCA_embedding, labels):
 
 
 
+# Defining a function to create a 2D plot of the transformed embeddings from PCA colored with chromosome labels
+
+def plot_chromosome_labels(PCA_embedding, labels, embedding, chromosome_names):
+
+    # Since labels can have a mixture of integers and strings, I convert the labels to a categorical array using the pd.Categorical function from the pandas library. 
+    # This will assign unique numerical codes to each label, allowing them to be used as colors in the scatter plot.
+    
+    labels_cat = pd.Categorical(labels)
+    
+    # Creating a custom discrete color palette
+    
+    palette = ListedColormap(['blue', 'red', 'green', 'yellow', 'orange'])  
+
+    # Creating a scatter plot
+    # PCA_embedding[:, 0] represents the values of the first principal component, and PCA_embedding[:, 1] represents the values of the second principal component. 
+    # The c parameter is set to labels, which assigns a different color to each unique cluster/chromosome label.
+    # The labels_cat.codes attribute represents the numerical codes assigned to each unique label in the categorical array.
+
+    scatter = plt.scatter(PCA_embedding[:, 0], PCA_embedding[:, 1], c=labels_cat.codes, cmap=palette)
+
+    # Adding labels and title
+    
+    plt.xlabel('Principal Component 1')
+    plt.ylabel('Principal Component 2')
+    plt.title('Transformed Node Embeddings with Chromosome Labels')
+
+    # Creating a custom legend
+    
+    legend_elements = []
+
+    # chromosome_names is a list containing the chromosome names
+    
+    for i, chromosome_name in enumerate(chromosome_names):
+        
+        # Using the scatter.to_rgba(i) method to retrieve the color associated with each chromosome from the scatter plot. 
+        # This method converts the integer index i to the corresponding color value
+        
+        color = scatter.to_rgba(i)
+        
+        legend_elements.append(plt.Line2D([0], [0], marker='o', color=color, label=chromosome_name, markerfacecolor=scatter.cmap(i/len(chromosome_names)), markersize=8))
+        
+    plt.legend(handles=legend_elements)
+
+
+    # Displaying the plot
+    
+    plt.show()
 
 
 
