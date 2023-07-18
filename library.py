@@ -62,16 +62,9 @@ def remove_isolated_nodes(graph):
 
 # Below follows the node2vec algorithm
 
-# Defining the node2vec parameters used for the example of the Hi-C data
-
-D = 10
-P = 1
-Q = 0.5
-WL = 300
-
 # Defining a function to retrieve the node embeddings using node2vec
 
-def node_embeddings(graph, file_name):
+def node_embeddings(graph, file_name, D, P, Q, WL):
 
     # Precomputing probabilities and generating walks 
     # Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on your computer
