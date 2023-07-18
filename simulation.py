@@ -1,10 +1,14 @@
 import numpy as np
 
+# Importing library for creating network graphs
+
 import networkx as nx
+
+# Importing library for using the node2vec algorithm for node embedding
 
 from node2vec import Node2Vec
 
-# Importing HDBSCAN for clustering
+# Importing library for using the HDBSCAN algorithm for clustering
 
 import hdbscan
 
