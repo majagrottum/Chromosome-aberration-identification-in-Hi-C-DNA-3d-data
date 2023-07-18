@@ -75,9 +75,9 @@ def create_node_mapping(graph):
 
 
 
-# Creating a function to retrieve the new index of a node 
+# Defining functions to retrieve the new index of a node after removal of isolated nodes from a network graph
 
-def get_new_node_index(mapping, old_index):
+def get_new_node_index_start(mapping, old_index):
     
     try:
         
@@ -85,12 +85,29 @@ def get_new_node_index(mapping, old_index):
     
     except KeyError:
         
-        # Key not found in mapping, find the closest higher key
-        # finds the smallest key in the mapping dictionary that is greater than the given key
+        # If the key is not found in the mapping dictionary, find the closest higher key
+        # Finds the smallest key in the mapping dictionary that is greater than the given key
         
         closest_higher_key = min(filter(lambda x: x > old_index, mapping.keys()))
         
         return mapping[closest_higher_key]
+        
+    
+def get_new_node_index_end(mapping, old_index):
+    
+    try:
+        
+        return mapping[old_index]
+    
+    except KeyError:
+        
+        # If the key is not found in the mapping dictionary, find the closest smaller key
+        # Finds the highest key in the mapping dictionary that is smaller than the given key
+        
+        closest_smaller_key = max(filter(lambda x: x < old_index, mapping.keys()))
+        
+        return mapping[closest_smaller_key]
+
 
 
 # Retrieving the new indices corresponding to the start and end nodes of the different chromosomes
