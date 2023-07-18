@@ -53,108 +53,6 @@ def remove_isolated_nodes(graph):
 
 
 
-# Defining a function that maps the old indices of nodes into the new ones after having removed the isolated nodes from a network graph
-
-def create_node_mapping(graph):
-
-    remaining_nodes = list(graph.nodes)
-    
-    mapping = {}
-    
-    for index, node in enumerate(remaining_nodes):
-        
-        mapping[node] = index
-
-    # The function returns a dictionary where the key is old index and the value is the new index
-    
-    return mapping
-
-
-
-# Defining functions to retrieve the new index of a node after removal of isolated nodes from a network graph
-
-def get_new_node_index_start(mapping, old_index):
-    
-    try:
-        
-        return mapping[old_index]
-    
-    except KeyError:
-        
-        # If the key is not found in the mapping dictionary, find the closest higher key
-        # Finds the smallest key in the mapping dictionary that is greater than the given key
-        
-        closest_higher_key = min(filter(lambda x: x > old_index, mapping.keys()))
-        
-        return mapping[closest_higher_key]
-        
-    
-def get_new_node_index_end(mapping, old_index):
-    
-    try:
-        
-        return mapping[old_index]
-    
-    except KeyError:
-        
-        # If the key is not found in the mapping dictionary, find the closest smaller key
-        # Finds the highest key in the mapping dictionary that is smaller than the given key
-        
-        closest_smaller_key = max(filter(lambda x: x < old_index, mapping.keys()))
-        
-        return mapping[closest_smaller_key]
-
-
-
-# Defining a function to retrieve the new indices corresponding to the start and end nodes of the different sets of nodes in the network
-# Sets of nodes correspond to different chromosomes in the case of Hi-C data
-
-def new_indices_of_sets(mapping, graph, old_indices):
-
-    # Creating a list with the new indices corresponding to the different sets of nodes
-
-    new_dataset_indices = []
-    
-    for start, end in old_indices:
-        
-        new_start = get_new_node_index_start(mapping, start)
-        
-        new_end = get_new_node_index_end(mapping, end)
-        
-        new_dataset_indices.append((new_start, new_end))
-
-    return new_dataset_indices
-
-
-
-# Defining a function that returns a list of the corresponding label of each node according to the different sets of nodes (in this case chromosomes)
-
-# dataset_indices is on the same form as the list returned from new_indices_of_sets
-
-# The label_mapping dictionary is defined to map the original label indices to the desired customized labels. 
-# An example of the argument is label_mapping = {0: 1, 1: 6, 2: 'X', 3: 10, 4: 20}
-# In this example the label_mapping dictionary maps index 0 to label 1, index 1 to label 6, index 2 to label 'X', index 3 to label 10, and index 4 to label 20.
-# This dictionary has to contain the same number of elements as the dataset_indices
-
-def nodes_labeled_as_chromosomes(dataset_indices, label_mapping):
-
-    chromosome_labels = []
-    
-    for i, (start, end) in enumerate(dataset_indices):
-
-        # The first argument passed to get() is the key i that is being looked up in the dictionary.
-        # The second argument passed to get() is a default value that will be returned if the key i is not found in the dictionary.
-       
-        label = label_mapping.get(i, i)
-
-        # Adds the label x times where x is the number of nodes corresponding to that label
-
-        chromosome_labels += ([label] * (end - start + 1))
-        
-    return chromosome_labels
-
-
-
 
 
 
@@ -299,7 +197,7 @@ def principal_component_analysis(embedding):
 
 
 # PCA was applied on the node embedding vectors to visualize them in 2D
-# We can then use the cluster/chromosome label of each segment to color it 
+# We can then use the cluster label of each segment to color it 
 
 # Defining a function to create a 2D plot of the transformed embeddings from PCA colored with cluster labels
 
@@ -325,58 +223,3 @@ def plot_cluster_labels(PCA_embedding, labels):
     # Displaying the plot
     
     plt.show()
-
-
-
-# Defining a function to create a 2D plot of the transformed embeddings from PCA colored with chromosome labels
-
-def plot_chromosome_labels(PCA_embedding, labels, embedding, chromosome_names):
-
-    # Since labels can have a mixture of integers and strings, I convert the labels to a categorical array using the pd.Categorical function from the pandas library. 
-    # This will assign unique numerical codes to each label, allowing them to be used as colors in the scatter plot.
-    
-    labels_cat = pd.Categorical(labels)
-    
-    # Creating a custom discrete color palette
-    
-    palette = ListedColormap(['blue', 'red', 'green', 'yellow', 'orange'])  
-
-    # Creating a scatter plot
-    # PCA_embedding[:, 0] represents the values of the first principal component, and PCA_embedding[:, 1] represents the values of the second principal component. 
-    # The c parameter is set to labels, which assigns a different color to each unique cluster/chromosome label.
-    # The labels_cat.codes attribute represents the numerical codes assigned to each unique label in the categorical array.
-
-    scatter = plt.scatter(PCA_embedding[:, 0], PCA_embedding[:, 1], c=labels_cat.codes, cmap=palette)
-
-    # Adding labels and title
-    
-    plt.xlabel('Principal Component 1')
-    plt.ylabel('Principal Component 2')
-    plt.title('Transformed Node Embeddings with Chromosome Labels')
-
-    # Creating a custom legend
-    
-    legend_elements = []
-
-    # chromosome_names is a list containing the chromosome names
-    
-    for i, chromosome_name in enumerate(chromosome_names):
-        
-        # Using the scatter.to_rgba(i) method to retrieve the color associated with each chromosome from the scatter plot. 
-        # This method converts the integer index i to the corresponding color value
-        
-        color = scatter.to_rgba(i)
-        
-        legend_elements.append(plt.Line2D([0], [0], marker='o', color=color, label=chromosome_name, markerfacecolor=scatter.cmap(i/len(chromosome_names)), markersize=8))
-        
-    plt.legend(handles=legend_elements)
-
-
-    # Displaying the plot
-    
-    plt.show()
-
-
-
-
-
