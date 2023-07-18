@@ -239,17 +239,7 @@ def embedding_dictionary(file_name):
     
 
 
-
-
-
-
-
-
-
-
-
 # Clustering is performed below using HDBSCAN
-
 
 
 # Defining a function to perform clustering using HDBSCAN
@@ -264,33 +254,16 @@ def clustering_HDBSCAN(embedding):
 
     clusterer.fit(embedding)
 
-    # The clusterer object knows, and stores the result in an attribute labels_
-    # Access the cluster labels assigned to each data point
-    # The result will be an array of cluster labels corresponding to each data point in the embedding
+    # labels will be an array of cluster labels corresponding to each data point in the embedding
     # Samples that are in the same cluster get assigned the same number. 
-    # The cluster labels start at 0 and count up.
+    # Importantly HDBSCAN is noise aware – it has a notion of data samples that are not assigned to any cluster. 
+    # This is handled by assigning these samples the label -1.
     # The shape of the labels array would typically be (num_nodes,), indicating a 1-dimensional array with the length equal to the number of nodes in the dataset.
 
     labels = clusterer.labels_
-    
-    # We can thus determine the number of clusters found by finding the largest cluster label and add 1
 
-    num_clusters = clusterer.labels_.max() + 1
+    return labels
 
-    return clusterer, labels, num_clusters
-
-
-
-# Importantly HDBSCAN is noise aware – it has a notion of data samples that are not assigned to any cluster. 
-# This is handled by assigning these samples the label -1.
-
-# Retrieving the cluster labels assigned to each data point in the node embedding of the healthy cell line
-
-clusterer_h, labels_h, num_clusters_h = clustering_HDBSCAN(embedding_h)
-
-# Retrieving the cluster labels assigned to each data point in the node embedding of the cancer cell line
-
-clusterer_c, labels_c, num_clusters_c = clustering_HDBSCAN(embedding_c)
 
 
 
