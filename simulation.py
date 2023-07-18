@@ -279,7 +279,6 @@ def principal_component_analysis(embedding):
 
     # Creating the PCA Object
     # n_components represents the desired number of principal components to retain
-    # we want a bidimensional map
     # n_components=2 means that you are considering the first two eigenvectors (with largest eigenvalues) of the covariance matrix and taking for each point the value of the first eigenvector as X and the value of the second as Y. 
 
     pca = PCA(n_components=2)
@@ -288,23 +287,14 @@ def principal_component_analysis(embedding):
 
     pca.fit(embedding)
     
-    # Transforming the data
-    # The transform method will project the embeddings onto the principal components, resulting in the transformed embeddings.
+    # Transforming the data by projecting the embeddings onto the principal components
     
     transformed_embedding = pca.transform(embedding)
     
     return transformed_embedding
 
 
-# Retrieving the transformed embeddings from the PCA of the node embeddings
 
-# For the healthy cell line
-
-transformed_node_embedding_h = principal_component_analysis(embedding_h)
-
-# For the cancer cell line
-
-transformed_node_embedding_c = principal_component_analysis(embedding_c)
 
 
 
