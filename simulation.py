@@ -131,19 +131,27 @@ def new_indices_of_sets(mapping, graph, old_indices):
 
 
 
-# Creating a function that returns a list of the corresponding label of each node according to the different chromosomes
+# Defining a function that returns a list of the corresponding label of each node according to the different sets of nodes (in this case chromosomes)
 
-def labels_chromosomes(dataset, label_mapping):
+# dataset_indices is on the same form as the list returned from new_indices_of_sets
+
+# The label_mapping dictionary is defined to map the original label indices to the desired customized labels. 
+# An example of the argument is label_mapping = {0: 1, 1: 6, 2: 'X', 3: 10, 4: 20}
+# In this example the label_mapping dictionary maps index 0 to label 1, index 1 to label 6, index 2 to label 'X', index 3 to label 10, and index 4 to label 20.
+# This dictionary has to contain the same number of elements as the dataset_indices
+
+def nodes_labeled_as_chromosomes(dataset_indices, label_mapping):
 
     chromosome_labels = []
     
-    for i, (start, end) in enumerate(dataset):
+    for i, (start, end) in enumerate(dataset_indices):
 
         # The first argument passed to get() is the key i that is being looked up in the dictionary.
         # The second argument passed to get() is a default value that will be returned if the key i is not found in the dictionary.
-        # If the key i is not found in the label_mapping dictionary, the default value i itself will be assigned to the label variable. 
        
         label = label_mapping.get(i, i)
+
+        # Adds the label x times where x is the number of nodes corresponding to that label
 
         chromosome_labels += ([label] * (end - start + 1))
         
