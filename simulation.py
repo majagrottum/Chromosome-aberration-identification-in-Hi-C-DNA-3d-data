@@ -207,7 +207,7 @@ def plot_cluster_labels(PCA_embedding, labels):
     # PCA_embedding[:, 0] represents the values of the first principal component, and PCA_embedding[:, 1] represents the values of the second principal component. 
     # The c parameter is set to labels, which assigns a different color to each unique cluster label.
 
-    plt.scatter(PCA_embedding[:, 0], PCA_embedding[:, 1], c=labels, cmap='viridis)
+    plt.scatter(PCA_embedding[:, 0], PCA_embedding[:, 1], c=labels, cmap='viridis')
 
     # Adding labels and title
     
