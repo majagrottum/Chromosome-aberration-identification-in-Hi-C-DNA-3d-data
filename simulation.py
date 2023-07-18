@@ -110,31 +110,25 @@ def get_new_node_index_end(mapping, old_index):
 
 
 
-# Retrieving the new indices corresponding to the start and end nodes of the different chromosomes
+# Defining a function to retrieve the new indices corresponding to the start and end nodes of the different sets of nodes in the network
+# Sets of nodes correspond to different chromosomes in the case of Hi-C data
 
-def new_indices(mapping, graph, old_indices):
+def new_indices_of_sets(mapping, graph, old_indices):
 
-    # Creating a list with the new indices corresponding to the different chromosomes
+    # Creating a list with the new indices corresponding to the different sets of nodes
 
     new_dataset_indices = []
     
     for start, end in old_indices:
         
-        new_start = get_new_node_index(mapping, start)
+        new_start = get_new_node_index_start(mapping, start)
         
-        if end != old_indices[-1][1]:
-            
-            new_end = get_new_node_index(mapping, end)
-            
-        else:
-            
-            new_end = len(list(graph.nodes))-1
+        new_end = get_new_node_index_end(mapping, end)
         
-    
         new_dataset_indices.append((new_start, new_end))
 
-        
     return new_dataset_indices
+
 
 
 # Creating a function that returns a list of the corresponding label of each node according to the different chromosomes
