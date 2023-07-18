@@ -159,6 +159,25 @@ def nodes_labeled_as_chromosomes(dataset_indices, label_mapping):
 
 
 
+
+
+# Defining a function to retrieve the community label of each node of the network using Louvain community detection
+
+def community_label(graph):
+
+    # The partition dictionary will contain the community assignments for each node in the graph (key = node, value = community label)
+    # The resolution parameter will change the size of the communities
+    # By setting the random_state parameter to the same value each time you run the algorithm, you should obtain the same community assignments
+    
+    partition = community.best_partition(graph, weight='weight', resolution = 1, random_state = 0))
+    
+    return partition
+
+
+
+
+
+
 # Below follows the node2vec algorithm, which should be run separately (at separate times) for the two cell lines due to the analysis being heavy in terms of computational cost
 
 
@@ -234,38 +253,10 @@ def embedding_dictionary(file_name):
     
 
 
-# Defining a function to retrieve the community labels of each node of the networks
-
-def community_label(graph, file_name):
-
-    # Computing the partition using Louvain community detection
-    # The partition dictionary will contain the community assignments for each node in the graph
-    # The resolution parameter will change the size of the communities
-    # By setting the random_state parameter to the same value each time you run the algorithm, you should obtain the same community assignments
-    
-    partition = community.best_partition(graph, weight='weight', resolution = 1, random_state = 0))
-    
-    # Converting the community_assignments dictionary to a numpy array
-    # Each tuple from partition_h.items() consists of a node as the key and its corresponding community label as the value.
-    # The resulting array will have each tuple as a row, where the first column contains the node and the second column contains the community label.
-    
-    communities = np.array(list(partition.items()))
-    
-    # The resulting text file will have each node and its community label on a separate line, separated by a space.
-    
-    np.savetxt(file_name, communities, delimiter=' ', fmt='%s')
-
-    return partition, communities
 
 
-# Retrieving the community label of each node for the healthy cell line
-
-partition_h, communities_h = community_label(G_h, 'communities_h.txt')
 
 
-# Retrieving the community label of each node for the cancer cell line
-
-partition_c, communities_c = community_label(G_c, 'communities_c.txt')
 
 
 
