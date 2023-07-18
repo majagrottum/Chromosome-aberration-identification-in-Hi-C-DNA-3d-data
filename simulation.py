@@ -44,13 +44,17 @@ def create_graph(adjacency_matrix):
     return graph
 
 
-# I then remove the isolated nodes from the networks (rows/columns with zero sum)
 
-# list(nx.isolates(G)) is a list of all isolated nodes
+# Defining a function to remove isolated nodes from network graphs 
 
-G_h.remove_nodes_from(list(nx.isolates(G_h)))
+def remove_isolated_nodes(graph):
 
-G_c.remove_nodes_from(list(nx.isolates(G_c)))
+    isolated_nodes_list = list(nx.isolates(graph))
+
+    graph_new = graph.remove_nodes_from(isolated_nodes_list)
+
+    return graph_new
+
 
 
 # Creating a function that maps the old indices into the new ones after having removed the isolated nodes from the network
