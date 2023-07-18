@@ -32,14 +32,16 @@ def adjacency_matrix_from_file(filename, splitting):
     return adjacency_matrix
 
 
+# Defining a function to create a network graph from an adjacency matrix
 
-# Creating the different network graphs corresponding to each cell line (healthy/cancer)
-# from_numpy_matrix(A, create_using=None)returns a graph from numpy matrix.
-# The numpy matrix is interpreted as an adjacency matrix for the graph.
+def create_graph(adjacency_matrix):
 
-G_h = nx.from_numpy_matrix(adjacency_matrix_h, create_using=nx.Graph())
+    # nx.from_numpy_matrix(A, create_using=None)returns a graph from a numpy matrix.
+    # The numpy matrix is interpreted as an adjacency matrix for the graph.
     
-G_c = nx.from_numpy_matrix(adjacency_matrix_c, create_using=nx.Graph())
+    graph = nx.from_numpy_matrix(adjacency_matrix, create_using=nx.Graph())
+
+    return graph
 
 
 # I then remove the isolated nodes from the networks (rows/columns with zero sum)
