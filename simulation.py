@@ -57,17 +57,23 @@ def remove_isolated_nodes(graph):
 
 
 
-# Creating a function that maps the old indices into the new ones after having removed the isolated nodes from the network
+# Defining a function that maps the old indices of nodes into the new ones after having removed the isolated nodes from a network graph
 
-def create_node_mapping(remaining_nodes):
+def create_node_mapping(graph):
+
+    remaining_nodes = list(graph.nodes)
     
     mapping = {}
     
-    for i, node in enumerate(remaining_nodes):
+    for index, node in enumerate(remaining_nodes):
         
-        mapping[node] = i
-        
+        mapping[node] = index
+
+    # The function returns a dictionary where the key is old index and the value is the new index
+    
     return mapping
+
+
 
 # Creating a function to retrieve the new index of a node 
 
