@@ -158,20 +158,9 @@ def nodes_labeled_as_chromosomes(dataset_indices, label_mapping):
 
 
 
+# Below follows the node2vec algorithm
 
-
-
-
-
-
-
-
-
-
-# Below follows the node2vec algorithm, which should be run separately (at separate times) for the two cell lines due to the analysis being heavy in terms of computational cost
-
-
-# Defining the node2vec parameters
+# Defining the node2vec parameters used for the example of the Hi-C data
 
 D = 10
 P = 1
@@ -183,7 +172,7 @@ WL = 300
 def node_embeddings(graph, file_name):
 
     # Precomputing probabilities and generating walks 
-    # Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on my laptop which is 2
+    # Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on your computer
     
     node2vec = Node2Vec(graph, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=1, p=P, q=Q)  
     
@@ -196,8 +185,7 @@ def node_embeddings(graph, file_name):
       
     model.wv.save_word2vec_format(file_name)
 
-    return embedding
-
+    
 
 # Defining a function to retrieve node embeddings from txt files
 
