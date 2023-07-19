@@ -167,32 +167,31 @@ def clustering_HDBSCAN(embedding):
 
 
 
- 
-# Dimensionality reduction techniques like PCA can be used to project the node embeddings into a low-dimensional space for better visualization of clusters
-
-# In Principal Component Analysis (PCA) the idea is that data are projected on the first 2 eigenvectors of the covariance matrix, so on the directions which allow most of the variance in the data to be represented.
-
-# Defining a function to perform PCA
 
 def principal_component_analysis(embedding):
 
+    """This function performs principal component analysis to project node embeddings into a two-dimensional space.
+
+    Parameters:
+
+        embedding: the node embeddings given as a list, where each element in the list is a list with the embedding corresponding to one node
+
+    Returns: 
+
+        A ndarray of shape (n_samples, n_components) containing the transformed embeddings after PCA, 
+        where n_samples is the number of nodes and n_components = 2."""
+
     # Creating the PCA Object
     # n_components represents the desired number of principal components to retain
-    # n_components=2 means that you are considering the first two eigenvectors (with largest eigenvalues) of the covariance matrix and taking for each point the value of the first eigenvector as X and the value of the second as Y. 
-
     pca = PCA(n_components=2)
 
     # Fitting the PCA Model
-
     pca.fit(embedding)
     
     # Transforming the data by projecting the embeddings onto the principal components
-    
     transformed_embedding = pca.transform(embedding)
     
     return transformed_embedding
-
-
 
 
 
