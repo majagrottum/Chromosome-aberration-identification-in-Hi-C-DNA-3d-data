@@ -21,20 +21,14 @@ from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
 
-# Defining a function to retrieve an adjacency matrix from a .txt file
+
+# Defining a function to create a network graph from an adjacency matrix stored in a .txt file
 # The filename is the name of the file in string format
 # splitting defines how the values in the file are separated, e.g. comma separated values: ','
 
-def adjacency_matrix_from_file(filename, splitting):
+def create_graph(filename, splitting):
 
     adjacency_matrix = np.loadtxt(filename, delimiter = splitting)
-
-    return adjacency_matrix
-
-
-# Defining a function to create a network graph from an adjacency matrix
-
-def create_graph(adjacency_matrix):
 
     # nx.from_numpy_matrix(A, create_using=None)returns a graph from a numpy matrix.
     # The numpy matrix is interpreted as an adjacency matrix for the graph.
