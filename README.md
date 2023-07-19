@@ -21,4 +21,12 @@ cd Visualization-of-clusters-in-network-graphs
 pip install -r requirements.txt
 
 ```
-  
+
+## Usage
+
+Once you have installed the library, you can import the different functions in the library.py file into your Python script or Jupyter Notebook using standard Python import statements:
+
+```
+from library import node_embeddings
+
+```
