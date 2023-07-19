@@ -30,9 +30,18 @@ def create_graph(filename, splitting):
 
 
 
-# Defining a function to remove isolated nodes from network graphs 
 
 def remove_isolated_nodes(graph):
+
+    """ This function removes the isolated nodes from a network graph
+
+    Parameters:
+
+        graph: a NetworkX graph object
+
+    Returns:
+
+        A new NetworkX graph object where the isolated nodes in the input parameter graph have been removed."""
 
     isolated_nodes_list = list(nx.isolates(graph))
 
