@@ -138,32 +138,32 @@ def embedding_dictionary(file_name):
     
 
 
-# Clustering is performed below using HDBSCAN
-
-
-# Defining a function to perform clustering using HDBSCAN
-
 def clustering_HDBSCAN(embedding):
+
+    """This function performs clustering on node embeddings using the HDBSCAN algorithm and finds the cluster label associated to each node
+
+    Parameters:
+
+        embedding: the node embeddings given as a list, where each element in the list is a list with the embedding corresponding to one node
+
+    Returns:
+
+        An ndarray of shape (n_samples,) containing the cluster labels for each point in the dataset.
+        
+        Samples that are in the same cluster get assigned the same number. 
+        HDBSCAN is noise aware – it has a notion of data samples that are not assigned to any cluster. 
+        This is handled by assigning these samples the label -1."""
     
     # Generating a clustering object 
-
     clusterer = hdbscan.HDBSCAN()
 
-    # We can then use this clustering object and fit it to the data we have, which is an array of shape (n_nodes, n_dimensions) representing the node embeddings
-
+    # Using the clustering object and fitting it to the data we have
     clusterer.fit(embedding)
 
     # labels will be an array of cluster labels corresponding to each data point in the embedding
-    # Samples that are in the same cluster get assigned the same number. 
-    # Importantly HDBSCAN is noise aware – it has a notion of data samples that are not assigned to any cluster. 
-    # This is handled by assigning these samples the label -1.
-    # The shape of the labels array would typically be (num_nodes,), indicating a 1-dimensional array with the length equal to the number of nodes in the dataset.
-
     labels = clusterer.labels_
 
     return labels
-
-
 
 
 
