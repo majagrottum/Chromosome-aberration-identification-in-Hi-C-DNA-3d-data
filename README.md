@@ -26,7 +26,7 @@ pip install -r requirements.txt
 
 Once you have installed the library, you can import the different functions in the cluster_visualization.py file into your Python script or Jupyter Notebook using standard Python import statements. Example of usage of the library is shown below.
 
-```
+```python
 import numpy as np
 import networkx as nx
 from node2vec import Node2Vec
