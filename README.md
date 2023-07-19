@@ -24,9 +24,38 @@ pip install -r requirements.txt
 
 ## Usage
 
-Once you have installed the library, you can import the different functions in the library.py file into your Python script or Jupyter Notebook using standard Python import statements:
+Once you have installed the library, you can import the different functions in the cluster_visualization.py file into your Python script or Jupyter Notebook using standard Python import statements. Example of usage of the library is shown below.
 
 ```
-from library import node_embeddings
+import numpy as np
+import networkx as nx
+from node2vec import Node2Vec
+import hdbscan
+from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
+
+from cluster_visualization import create_graph, remove_isolated_nodes, node_embeddings, embedding_dictionary, clustering_HDBSCAN, principal_component_analysis, plot_cluster_labels
+
+# Create a graph
+G = create_graph(filename = 'example_file.txt', splitting = ',')
+
+# Remove the isolated nodes from the graph
+G_new = remove_isolated_nodes(graph = G)
+
+# Compute the node embeddings and save them in a .txt file
+node_embeddings(graph = G_new, file_name = 'node_embeddings.txt', D = 10, WL = 300, NW = 10, P = 1, Q = 0.5)
+
+# Retrieve the node embeddings from a .txt file
+node_embedding_dict = embedding_dictionary(file_name = 'node_embeddings.txt')
+
+# Retrieve cluster labels using the HDBSCAN algorithm
+node_embedding_values = list(node_embedding_dict.values())
+cluster_labels = clustering_HDBSCAN(embedding = node_embedding_values)
+
+# Perform dimensionality reduction using PCA
+low_dim_embedding = principal_component_analysis(embedding = node_embedding_values)
+
+# Create a 2D plot of the transformed embeddings from PCA colored with cluster labels
+plot_cluster_labels(PCA_embedding = low_dim_embedding, labels = cluster_labels)
 
 ```
