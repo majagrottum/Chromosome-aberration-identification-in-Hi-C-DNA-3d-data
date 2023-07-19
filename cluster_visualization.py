@@ -196,30 +196,33 @@ def principal_component_analysis(embedding):
 
 
 
-# PCA was applied on the node embedding vectors to visualize them in 2D
-# We can then use the cluster label of each segment to color it 
-
-# Defining a function to create a 2D plot of the transformed embeddings from PCA colored with cluster labels
-
 def plot_cluster_labels(PCA_embedding, labels):
+
+    """This function creates a 2D plot of transformed node embeddings from PCA where different colors in the plot correspond to different cluster labels.
+    The plot then shows the different clusters present in a network.
+
+    Parameters:
+
+        PCA_embedding: transformed node embeddings from PCA, which is a ndarray of shape (n_samples, n_components), 
+        where n_samples is the number of nodes and n_components = 2
+        
+        labels: a ndarray of shape (n_samples,) containing the cluster labels for each node in the dataset.
+        
+    """
     
     # Creating a scatter plot
     # PCA_embedding[:, 0] represents the values of the first principal component, and PCA_embedding[:, 1] represents the values of the second principal component. 
     # The c parameter is set to labels, which assigns a different color to each unique cluster label.
-
     plt.scatter(PCA_embedding[:, 0], PCA_embedding[:, 1], c=labels, cmap='viridis')
 
     # Adding labels and title
-    
     plt.xlabel('Principal Component 1')
     plt.ylabel('Principal Component 2')
     plt.title('Transformed Node Embeddings with Cluster Labels')
 
     # Adding a colorbar
-    
     colorbar = plt.colorbar()
     colorbar.set_label('Cluster Label')
 
     # Displaying the plot
-    
     plt.show()
