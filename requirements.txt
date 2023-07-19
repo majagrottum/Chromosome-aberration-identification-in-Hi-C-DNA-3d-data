@@ -2,5 +2,5 @@ numpy
 networkx
 node2vec
 hdbscan
-sklearn.decomposition
-matplotlib.pyplot
+scikit-learn
+matplotlib
