@@ -1,4 +1,4 @@
-# Chromosome aberration identification in Hi-C 3D DNA data
+# Visualization of clusters in network graphs
 
 ## About this library
 
