@@ -1,6 +1,0 @@
-numpy
-networkx
-node2vec
-hdbscan
-scikit-learn
-matplotlib
