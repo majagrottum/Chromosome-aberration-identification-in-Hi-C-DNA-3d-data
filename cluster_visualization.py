@@ -58,12 +58,12 @@ def remove_isolated_nodes(graph):
 
 # Defining a function to retrieve the node embeddings using node2vec
 
-def node_embeddings(graph, file_name, D, P, Q, WL):
+def node_embeddings(graph, file_name, D, WL, NW, P, Q):
 
     # Precomputing probabilities and generating walks 
     # Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on your computer
     
-    node2vec = Node2Vec(graph, dimensions=D, walk_length=WL, num_walks=10, weight_key='weight', workers=1, p=P, q=Q)  
+    node2vec = Node2Vec(graph, dimensions=D, walk_length=WL, num_walks=NW, weight_key='weight', workers=1, p=P, q=Q)  
     
     # Generating the node embedding 
     
