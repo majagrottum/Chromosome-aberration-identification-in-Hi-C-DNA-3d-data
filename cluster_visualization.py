@@ -7,16 +7,22 @@ import matplotlib.pyplot as plt
 
 
 
-# Defining a function to create a network graph from an adjacency matrix stored in a .txt file
-# The filename is the name of the file in string format
-# splitting defines how the values in the file are separated, e.g. comma separated values: ','
-
 def create_graph(filename, splitting):
 
-    adjacency_matrix = np.loadtxt(filename, delimiter = splitting)
+    """This function creates a network graph from an adjacency matrix stored in a .txt file.
+    The content in the .txt file is assumed to make a symmetric matrix containing numerical 
+    values representing the presence or absence of edges and their corresponding weights.
+       
+    Parameters:
+    
+        filename: name of the file the adjacency matrix is stored in (string format)
+        splitting: defines how the values in the file are separated (string format), e.g. for comma separated values this parameter is ','
 
-    # nx.from_numpy_matrix(A, create_using=None)returns a graph from a numpy matrix.
-    # The numpy matrix is interpreted as an adjacency matrix for the graph.
+    Returns:
+    
+         A NetworkX graph object created from the adjacency matrix (numpy matrix)."""
+
+    adjacency_matrix = np.loadtxt(filename, delimiter = splitting)
     
     graph = nx.from_numpy_matrix(adjacency_matrix, create_using=nx.Graph())
 
