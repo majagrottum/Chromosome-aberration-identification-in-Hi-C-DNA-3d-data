@@ -18,7 +18,7 @@ To install this library, clone the repository and use pip by opening your termin
 ```
 git clone https://github.com/majagrottum/Visualization-of-clusters-in-undirected-weighted-network-graphs
 cd Visualization-of-clusters-in-undirected-weighted-network-graphs
-pip install -r requirements.txt
+pip install --editable cluster_visualization
 
 ```
 
