@@ -83,18 +83,30 @@ def node_embeddings(graph, file_name, D, WL, NW, P, Q):
 
 
 
-# Defining a function to retrieve node embeddings from a txt file
-
 def embedding_dictionary(file_name):
+
+    """This function retrieves node embeddings stored in a .txt file.
+    
+        The content in the .txt file needs to be in a space separated form.
+        The first row in the file should tell that the embedding is composed of x number of nodes, each one characterized by y coordinates,
+        with x being in the first coloumn and y being in the second coloumn.
+        For the next rows should each row correspond to one node, the first column corresponding to the index of the node within the network, 
+        and then follows the coordinates of that node (number of coordinates corresponds to the embedding dimension).
+        
+    Parameters:
+
+        file_name: name of the file the node embeddings are stored in (string format)
+
+    Returns:
+
+        A sorted dictionary (keys in increasing order) where the keys are the nodes and the values are their corresponding embeddings.
+        Each value in the dictionary is thus the embedding corresponding to a node stored in a list. """
     
     with open(file_name, "r") as file:
         
-        # Skipping the first line, as this is just telling us that the embedding is composed of x number of nodes, each one characterized by y coordinates
-        
+        # Skipping the first line, as this is just telling us the number of nodes and embedding dimension
         file.readline()
         
-        # Read the contents of the file
-
         content = file.readlines()
         
     data = {}
@@ -102,15 +114,12 @@ def embedding_dictionary(file_name):
     for line in content:
 
         # Separating each line in the file based on the separator (here being space)
-        
         elements = line.split()
 
         # Finding the node 
-
         label = int(elements[0])
 
         # Making a list for the embeddings
-        
         coordinates = []
         
         for c in elements[1:]:
@@ -118,19 +127,13 @@ def embedding_dictionary(file_name):
                 coordinates.append(float(c))
 
         # The dictionary data then contains the nodes as keys and their embeddings (in a list) as values
-
         data[label] = coordinates
         
-    # Using the sorted() function to sort the items in the dictionary based on the keys. 
     # The lambda function lambda x: x[0] specifies that the sorting should be done based on the first element (x[0]) of each key-value pair.
     # The sorted() function returns a list of sorted key-value pairs, which we then convert back into a dictionary using the dict() function. 
-    # The resulting sorted_data dictionary will have the keys sorted in increasing order.
-    
     sorted_data = dict(sorted(data.items(), key=lambda x: x[0]))
     
     return sorted_data
-
-
 
     
 
