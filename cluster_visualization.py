@@ -1,23 +1,8 @@
 import numpy as np
-
-# Importing library for creating network graphs
-
 import networkx as nx
-
-# Importing library for using the node2vec algorithm for node embedding
-
 from node2vec import Node2Vec
-
-# Importing library for using the HDBSCAN algorithm for clustering
-
 import hdbscan
-
-# Importing PCA for dimensionality reduction
-
 from sklearn.decomposition import PCA
-
-# Importing necessary library to create the 2D plots of the transformed (through PCA) embeddings
-
 import matplotlib.pyplot as plt
 
 
