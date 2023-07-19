@@ -9,7 +9,7 @@ Then, using Principal Component Analysis (PCA) the node embeddings can be visual
 The data is then visualized in a plot through the first two principal components, assigning a different color to each cluster in the network. 
 In the case of the Hi-C data, the visualization of the clusters was obtained to identify chromosome aberrations in a cancer cell line, meaning that some chromosomes would be separated into different clusters.
 
-The different parameters/arguments for the different functions are specified in more detail throughout the code in the library.py file.
+The different parameters/arguments for the different functions and what they return are specified and explained in more detail in the cluster_visualization.py file.
 
 ## Installation
 
