@@ -16,8 +16,8 @@ The different parameters/arguments for the different functions are specified in 
 To install this library, clone the repository and use pip by opening your terminal or command prompt and run the following commands:
 
 ```
-git clone https://github.com/majagrottum/Chromosome-aberration-identification-in-Hi-C-DNA-3d-data
-cd Chromosome-aberration-identification-in-Hi-C-DNA-3d-data
+git clone https://github.com/majagrottum/Visualization-of-clusters-in-network-graphs
+cd Visualization-of-clusters-in-network-graphs
 pip install -r requirements.txt
 
 ```
