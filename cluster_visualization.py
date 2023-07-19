@@ -52,29 +52,36 @@ def remove_isolated_nodes(graph):
 
 
 
-
-
-# Below follows the node2vec algorithm
-
-# Defining a function to retrieve the node embeddings using node2vec
-
 def node_embeddings(graph, file_name, D, WL, NW, P, Q):
+
+    """ This function compute node embeddings using the node2vec algorithm (graph is assumed to be weighted) and stores the result in a .txt file. 
+        Each row in the .txt file will correspond to one node, the first column corresponds to the index of the node within the network, 
+        and then follows the D coordinates of that node.
+
+    Parameters:
+
+        graph: a NetworkX graph object
+        file_name: name of the file the node embeddings will be stored in (string format)
+        D: embedding dimensions
+        WL: number of nodes in each walk
+        NW: number of walks per node
+        P: return hyper parameter
+        Q: inout parameter
+        
+    """
 
     # Precomputing probabilities and generating walks 
     # Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on your computer
-    
     node2vec = Node2Vec(graph, dimensions=D, walk_length=WL, num_walks=NW, weight_key='weight', workers=1, p=P, q=Q)  
     
     # Generating the node embedding 
-    
     model = node2vec.fit(window=10, min_count=1, batch_words=4)
     
     # Saving embeddings for later use
-    # Each row in the txt file corresponds to one node, the first column corresponds to the index of the node within the network, and then follows the 10 coordinates of that node
-      
     model.wv.save_word2vec_format(file_name)
 
-    
+
+
 
 # Defining a function to retrieve node embeddings from a txt file
 
