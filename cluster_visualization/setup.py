@@ -7,6 +7,6 @@ setup(
     install_requires=[ 'numpy', 'networkx', 'node2vec', 'hdbscan', 'scikit-learn', 'matplotlib',],
     entry_points = {
         'console_scripts': [
-            'cluster_visualization = cluster_visualization.__main__:Visualization-of-clusters-in-undirected-weighted-network-graphs',
+            'cluster_visualization = cluster_visualization.__main__:main',
         ]
     })
