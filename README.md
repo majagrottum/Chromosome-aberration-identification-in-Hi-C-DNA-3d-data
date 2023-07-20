@@ -34,7 +34,7 @@ import hdbscan
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 
-from cluster_visualization import create_graph, remove_isolated_nodes, node_embeddings, embedding_dictionary, clustering_HDBSCAN, principal_component_analysis, plot_cluster_labels
+from cluster_visualization.__main__ import create_graph, remove_isolated_nodes, node_embeddings, embedding_dictionary, clustering_HDBSCAN, principal_component_analysis, plot_cluster_labels
 
 # Create a graph
 G = create_graph(filename = 'example_file.txt', splitting = ',')
