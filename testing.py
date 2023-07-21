@@ -133,6 +133,42 @@ def test_node_embeddings_file(graph, file_name, D, WL, NW, P, Q):
 
 
 
+def test_content_node_embeddings_file(graph, file_name, D, WL, NW, P, Q):
+
+  """This function tests if the file created in the node_embeddings function contains the embedding information on the correct form:
+  
+  The content in the .txt file should be in a space separated form.
+  The first row in the file should tell that the embedding is composed of x number of nodes, each one characterized by y coordinates,
+  with x being in the first coloumn and y being in the second coloumn.
+  For the next rows should each row correspond to one node, the first column corresponding to the index of the node within the network, 
+  and then follows the coordinates of that node (number of coordinates corresponds to the embedding dimension)."""
+
+  with open(file_name, 'r') as f:
+    
+        content = f.readlines()
+
+  # Checking if the first row has the correct embedding information
+  first_row = content[0].split()
+
+  assert len(first_row) == 2, "Test failed: The first row should contain two values: number of nodes and embedding dimensions."
+
+  assert int(first_row[0]) == graph.number_of_nodes(), "Test failed: The number of nodes in the first row is incorrect."
+
+  assert int(first_row[1]) == D, "Test failed: The embedding dimensions in the first row is incorrect."
+
+  # Checking if each subsequent row corresponds to one node and contains the correct number of coordinates
+  for line in content[1:]:
+      
+      row = line.split()
+      
+      assert len(row) == D + 1, "Test failed: Each row should correspond to one node and contain D+1 values (node index + embedding coordinates)."
+      
+      assert int(row[0]) in graph.nodes(), "Test failed: Node index in the row does not exist in the graph."
+
+
+
+
+
 
 
   
