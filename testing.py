@@ -227,6 +227,19 @@ def test_number_of_labels(embedding):
 
 
 
+def test_noise_label(embedding):
+
+  """This function tests that the output cluster labels from the clustering_HDBSCAN function includes the label -1 
+  for data samples that are not assigned to any cluster."""
+
+  labels = clustering_HDBSCAN(embedding)
+
+  assert -1 in labels, "Test failed: The cluster labels should include -1 for data samples that are not assigned to any cluster."
+
+
+
+
+
   
 
 def test_principal_component_analysis():
