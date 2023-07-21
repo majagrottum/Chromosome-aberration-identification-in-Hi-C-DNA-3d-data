@@ -194,7 +194,7 @@ def test_embedding_list(file_name):
   embeddings = embedding_list(file_name)
 
   # Checking if the returned list has the correct number of embeddings 
-  assert len(embeddings) == int(first_row[0]) ==, "Test failed: The number of embeddings in the list is incorrect."
+  assert len(embeddings) == int(first_row[0]), "Test failed: The number of embeddings in the list is incorrect."
 
   # Checking if each element in the list is a list of coordinates with the correct length 
   for embedding in embeddings:
