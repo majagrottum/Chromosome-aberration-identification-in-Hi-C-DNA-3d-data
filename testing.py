@@ -216,6 +216,17 @@ def test_clustering_HDBSCAN_datatype(embedding):
   assert isinstance(labels, np.ndarray), "Test failed: The cluster labels should be a numpy array."
 
 
+
+def test_number_of_labels(embedding):
+
+  """This function tests that the number of output labels from the clustering_HDBSCAN function matches the number of data points in the embedding."""
+
+  labels = clustering_HDBSCAN(embedding)
+
+  assert len(labels) == len(embedding), "Test failed: The number of cluster labels should match the number of data points."
+
+
+
   
 
 def test_principal_component_analysis():
