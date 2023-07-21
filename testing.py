@@ -258,13 +258,3 @@ def test_PCA_embedding_shape(embedding):
   transformed_embedding = principal_component_analysis(embedding)
 
   assert transformed_embedding.shape == (len(embedding), 2), "Test failed: The shape of the transformed embedding is incorrect."
-
-
-
-
-
-
-
-
-
-  
