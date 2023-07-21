@@ -69,6 +69,21 @@ def test_symmetricity(filename, splitting):
 
 
 
+def test_remove_isolated_nodes():
+
+  """This function tests if the remove_isolated_nodes function works correctly in the case of a graph with one isolated node."""
+
+  graph = nx.Graph()
+  
+  graph.add_nodes_from([1, 2, 3])
+  
+  graph.add_edges_from([(1, 2)])
+  
+  remove_isolated_nodes(graph)
+  
+  assert graph.number_of_nodes() == 2, "Test failed: The graph should have 2 nodes after removing isolated nodes."
+  
+  assert graph.number_of_edges() == 1, "Test failed: The graph should have 1 edge after removing isolated nodes."
 
 
 
