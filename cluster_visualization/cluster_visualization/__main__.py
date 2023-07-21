@@ -79,7 +79,7 @@ def node_embeddings(graph, file_name, D, WL, NW, P, Q):
 
 
 
-def embedding_dictionary(file_name):
+def embedding_list(file_name):
 
     """This function retrieves node embeddings stored in a .txt file.
     
@@ -95,8 +95,8 @@ def embedding_dictionary(file_name):
 
     Returns:
 
-        A sorted dictionary (keys in increasing order) where the keys are the nodes and the values are their corresponding embeddings.
-        Each value in the dictionary is thus the embedding corresponding to a node stored in a list. """
+        A list where each element is a list with the embedding of a certain node. 
+        The first element is the embedding of node 1, the second element is the embedding of node 2, etc. """
     
     with open(file_name, "r") as file:
         
@@ -128,8 +128,10 @@ def embedding_dictionary(file_name):
     # The lambda function lambda x: x[0] specifies that the sorting should be done based on the first element (x[0]) of each key-value pair.
     # The sorted() function returns a list of sorted key-value pairs, which we then convert back into a dictionary using the dict() function. 
     sorted_data = dict(sorted(data.items(), key=lambda x: x[0]))
+
+    node_embedding_list = list(sorted_data.values())
     
-    return sorted_data
+    return node_embedding_list
 
     
 
