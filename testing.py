@@ -1,5 +1,3 @@
-def test_adjacency_matrix_from_file():
-
 def test_create_graph():
 
 def test_remove_isolated_nodes():
