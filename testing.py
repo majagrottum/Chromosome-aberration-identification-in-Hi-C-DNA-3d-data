@@ -4,7 +4,7 @@ def test_remove_isolated_nodes():
 
 def test_node_embeddings():
 
-def test_embedding_dictionary():
+def test_embedding_list():
 
 def test_clustering_HDBSCAN():
 
