@@ -174,11 +174,50 @@ def test_content_node_embeddings_file(graph, file_name, D, WL, NW, P, Q):
 
 
 
+def test_embedding_list():
 
+  """This function tests if the embedding_list function correctly retrieves the node embeddings from the specified file 
+  and returns them in the appropriate format, which is a list where each element is a list with the embedding of a certain node. 
+
+  The length of the list (number of embeddings) should be equal to the first number in the first line of the file (which is the number of nodes), 
+  and the length of each element in the list should be equal to the second number in the first line of the file (which is the embedding dimension).
+
+  """
+
+  # Creating a temporary file with sample node embeddings
+  with open("temp_node_embeddings.txt", "w") as file:
+    
+    file.write("5 64\n")
+    file.write("1 0.1 0.2 ... 0.64\n")
+    ile.write("2 0.3 0.4 ... 0.67\n")
+    file.write("3 0.5 0.6 ... 0.68\n")
+    file.write("4 0.7 0.8 ... 0.69\n")
+    file.write("5 0.9 1.0 ... 0.70\n")
+
+  # Using the temporary file to get the embedding list
+  file_name = "temp_node_embeddings.txt"
+  
+  embeddings = embedding_list(file_name)
+
+  # Checking if the returned list has the correct number of embeddings (should be 5)
+  assert len(embeddings) == 5, "Test failed: The number of embeddings in the list is incorrect."
+
+  # Checking if each element in the list is a list of coordinates with the correct length (should be 64)
+  for embedding in embeddings:
+    
+    assert isinstance(embedding, list), "Test failed: Each element in the list should be a list of coordinates."
+      
+    assert len(embedding) == 64, "Test failed: The length of each embedding should be 64."
+
+  # Cleaning up: removing the temporary file
+  os.remove("temp_node_embeddings.txt")
 
   
 
-def test_embedding_list():
+
+
+
+  
 
 def test_clustering_HDBSCAN():
 
