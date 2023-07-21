@@ -9,7 +9,7 @@ def test_create_graph_output_type(filename, splitting):
 
 def test_nodes_and_edges(filename, splitting):
 
-  """This function tests if the output graph have at least one node and a non-negative number of edges."""
+  """This function tests if the output graph from the create_graph function have at least one node and a non-negative number of edges."""
 
   graph = create_graph(filename, splitting)
 
