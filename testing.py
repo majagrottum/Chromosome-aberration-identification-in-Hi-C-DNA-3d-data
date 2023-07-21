@@ -216,9 +216,15 @@ def test_embedding_list():
 
 
 
+def test_clustering_HDBSCAN_datatype(embedding):
+
+  """This function tests that the output from the clustering_HDBSCAN function is of the correct data type (numpy array)."""
+
+  labels = clustering_HDBSCAN(embedding)
+
+  assert isinstance(labels, np.ndarray), "Test failed: The cluster labels should be a numpy array."
+
 
   
-
-def test_clustering_HDBSCAN():
 
 def test_principal_component_analysis():
