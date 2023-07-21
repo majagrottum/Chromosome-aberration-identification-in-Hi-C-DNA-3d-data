@@ -22,6 +22,10 @@ def create_graph(filename, splitting):
     
          A NetworkX graph object created from the adjacency matrix (numpy matrix)."""
 
+    assert isinstance(filename, str), "Error: 'filename' must be a string."
+    
+    assert isinstance(splitting, str), "Error: 'splitting' must be a string."
+    
     adjacency_matrix = np.loadtxt(filename, delimiter = splitting)
     
     graph = nx.from_numpy_matrix(adjacency_matrix, create_using=nx.Graph())
