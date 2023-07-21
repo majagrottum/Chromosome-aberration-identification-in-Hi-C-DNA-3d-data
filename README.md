@@ -40,10 +40,10 @@ from cluster_visualization.__main__ import create_graph, remove_isolated_nodes, 
 G = create_graph(filename = 'example_file.txt', splitting = ',')
 
 # Remove the isolated nodes from the graph
-G_new = remove_isolated_nodes(graph = G)
+remove_isolated_nodes(graph = G)
 
 # Compute the node embeddings and save them in a .txt file
-node_embeddings(graph = G_new, file_name = 'node_embeddings.txt', D = 10, WL = 300, NW = 10, P = 1, Q = 0.5)
+node_embeddings(graph = G, file_name = 'node_embeddings.txt', D = 10, WL = 300, NW = 10, P = 1, Q = 0.5)
 
 # Retrieve the node embeddings from a .txt file
 node_embedding_dict = embedding_dictionary(file_name = 'node_embeddings.txt')
