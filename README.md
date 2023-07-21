@@ -61,4 +61,6 @@ plot_cluster_labels(PCA_embedding = low_dim_embedding, labels = cluster_labels)
 
 Below is an example of the resulting 2D plot from using the code above with the 'example_file.txt' being a .txt file containing the adjacency matrix of a undirected weighted network from Hi-C 3D DNA data:
 
+![config](./Example_of_2D_plot.png)
+
 
