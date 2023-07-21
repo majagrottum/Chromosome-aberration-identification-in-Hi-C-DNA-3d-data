@@ -250,6 +250,18 @@ def test_PCA_datatype(embedding):
 
 
 
+def test_PCA_embedding_shape(embedding):
+
+  """This function tests if the shape of the output transformed embedding from the principal_component_analysis function is correct.
+  The correct shape should be (len(embedding), 2)."""
+
+  transformed_embedding = principal_component_analysis(embedding)
+
+  assert transformed_embedding.shape == (len(embedding), 2), "Test failed: The shape of the transformed embedding is incorrect."
+
+
+
+
 
 
 
