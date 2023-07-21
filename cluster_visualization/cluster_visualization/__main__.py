@@ -39,17 +39,13 @@ def remove_isolated_nodes(graph):
 
         graph: a NetworkX graph object
 
-    Returns:
-
-        A new NetworkX graph object where the isolated nodes in the input parameter graph have been removed."""
+    """
 
     isolated_nodes_list = list(nx.isolates(graph))
 
-    graph_new = graph.remove_nodes_from(isolated_nodes_list)
+    graph.remove_nodes_from(isolated_nodes_list)
 
-    return graph_new
-
-
+    
 
 
 def node_embeddings(graph, file_name, D, WL, NW, P, Q):
