@@ -70,6 +70,8 @@ def node_embeddings(graph, file_name, D, WL, NW, P, Q):
         
     """
 
+    assert isinstance(filename, str), "Error: 'filename' must be a string."
+
     # Precomputing probabilities and generating walks 
     # Number of workers is set to 1 as it should be smaller than or equal to the number of CPU cores on your computer
     node2vec = Node2Vec(graph, dimensions=D, walk_length=WL, num_walks=NW, weight_key='weight', workers=1, p=P, q=Q)  
