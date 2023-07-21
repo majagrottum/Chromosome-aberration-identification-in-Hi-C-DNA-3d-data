@@ -17,6 +17,21 @@ def test_nodes_and_edges(filename, splitting):
   
   assert graph.number_of_edges() >= 0, "Test failed: The graph should have a non-negative number of edges."
 
+
+def test_contain_all_nodes(filename, splitting):
+
+  """This function tests if the output graph from the create_graph function contains all nodes from the adjacency matrix."""
+
+  adjacency_matrix = np.loadtxt(filename, delimiter=splitting)
+  
+  expected_nodes = range(len(adjacency_matrix))
+
+  graph = create_graph(filename, splitting)
+  
+  assert set(graph.nodes()) == set(expected_nodes), "Test failed: The graph should contain all nodes from the adjacency matrix."
+
+
+
 def test_remove_isolated_nodes():
 
 def test_node_embeddings():
