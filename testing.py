@@ -146,6 +146,8 @@ def test_content_node_embeddings_file(graph, file_name, D, WL, NW, P, Q):
   For the next rows should each row correspond to one node, the first column corresponding to the index of the node within the network, 
   and then follows the coordinates of that node (number of coordinates corresponds to the embedding dimension)."""
 
+  node_embeddings(graph, file_name, D, WL, NW, P, Q)
+  
   with open(file_name, 'r') as f:
     
         content = f.readlines()
