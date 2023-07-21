@@ -189,7 +189,7 @@ def test_embedding_list():
     
     file.write("5 64\n")
     file.write("1 0.1 0.2 ... 0.64\n")
-    ile.write("2 0.3 0.4 ... 0.67\n")
+    file.write("2 0.3 0.4 ... 0.67\n")
     file.write("3 0.5 0.6 ... 0.68\n")
     file.write("4 0.7 0.8 ... 0.69\n")
     file.write("5 0.9 1.0 ... 0.70\n")
