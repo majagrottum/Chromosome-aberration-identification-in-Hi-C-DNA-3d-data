@@ -188,7 +188,7 @@ def test_embedding_list(file_name):
     
         content = f.readlines()
 
-  # Checking if the first row has the correct embedding information
+  # The first row contains the number of nodes (and thus embeddings) and the embedding dimension
   first_row = content[0].split()
   
   embeddings = embedding_list(file_name)
