@@ -31,6 +31,32 @@ def test_contain_all_nodes(filename, splitting):
   assert set(graph.nodes()) == set(expected_nodes), "Test failed: The graph should contain all nodes from the adjacency matrix."
 
 
+def test_edge_weights(filename, splitting):
+
+  """This function tests if the corresponding graph edges in the output graph from the create_graph function 
+  have the same weights as the distances between nodes in the adjacency matrix."""
+
+  adjacency_matrix = np.loadtxt(filename, delimiter = splitting)
+  
+  graph = create_graph(filename, splitting)
+
+  for u, v in graph.edges():
+    
+    if "weight" in graph[u][v]:
+      
+      weight = graph[u][v]["weight"]
+
+    else:
+      
+      # Default weight is set to 1 if not explicitly provided
+      weight = 1
+          
+    assert weight == adjacency_matrix[u][v], "Test failed: Edge weight between nodes {u} and {v} should be {adjacency_matrix[u][v]}."
+
+
+
+
+
 
 def test_remove_isolated_nodes():
 
