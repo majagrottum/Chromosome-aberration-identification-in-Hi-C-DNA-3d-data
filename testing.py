@@ -115,9 +115,9 @@ def test_no_isolated_nodes():
   
   remove_isolated_nodes(graph)
   
-  assert graph.number_of_nodes() == 3, "Test 3 failed: The graph should have 3 nodes as there are no isolated nodes."
+  assert graph.number_of_nodes() == 3, "Test failed: The graph should have 3 nodes as there are no isolated nodes."
   
-  assert graph.number_of_edges() == 2, "Test 3 failed: The graph should have 2 edges as there are no isolated nodes."
+  assert graph.number_of_edges() == 2, "Test failed: The graph should have 2 edges as there are no isolated nodes."
 
 
 
