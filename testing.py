@@ -123,7 +123,19 @@ def test_no_isolated_nodes():
 
 
 
-def test_node_embeddings():
+def test_node_embeddings_file(graph, file_name, D, WL, NW, P, Q):
+
+  """This function tests if the file that the node embeddings should be saved in in the node_embeddings function exists."""
+
+  node_embeddings(graph, file_name, D, WL, NW, P, Q)
+
+  assert os.path.exists(file_name), "Test failed: The node embeddings file was not created."
+
+
+
+
+
+  
 
 def test_embedding_list():
 
