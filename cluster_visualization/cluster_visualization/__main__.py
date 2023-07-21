@@ -104,6 +104,8 @@ def embedding_list(file_name):
         A list where each element is a list with the embedding of a certain node. 
         The first element is the embedding of node 1, the second element is the embedding of node 2, etc. """
     
+    assert isinstance(file_name, str), "Error: 'file_name' must be a string."
+    
     with open(file_name, "r") as file:
         
         # Skipping the first line, as this is just telling us the number of nodes and embedding dimension
