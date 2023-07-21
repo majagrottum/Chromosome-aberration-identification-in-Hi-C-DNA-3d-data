@@ -55,6 +55,21 @@ def test_edge_weights(filename, splitting):
 
 
 
+def test_symmetricity(filename, splitting):
+
+  """This function tests if the output graph from the create_graph function is symmetric.
+  If the graph is undirected and the adjacency matrix is symmetric, the graph edges should be symmetric as well."""
+
+  graph = create_graph(filename, splitting)
+
+  # If the condition evaluates to True, it means the graph is symmetric (undirected and has the same structure as its undirected version).
+  assert nx.is_isomorphic(graph, graph.to_undirected()), "Test failed: The graph should be symmetric."
+
+
+
+
+
+
 
 
 
