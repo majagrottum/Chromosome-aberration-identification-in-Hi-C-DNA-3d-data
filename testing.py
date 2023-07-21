@@ -87,6 +87,23 @@ def test_remove_isolated_nodes():
 
 
 
+def test_all_nodes_isolated():
+
+  """This function tests if the remove_isolated_nodes function makes an empty graph when all the nodes in the graph are isolated."""
+
+  graph = nx.Graph()
+  
+  graph.add_nodes_from([1, 2, 3])
+  
+  remove_isolated_nodes(graph)
+  
+  assert graph.number_of_nodes() == 0, "Test failed: The graph should have 0 nodes after removing isolated nodes."
+  
+  assert graph.number_of_edges() == 0, "Test failed: The graph should have 0 edges after removing isolated nodes."
+
+
+
+
 
 def test_remove_isolated_nodes():
 
