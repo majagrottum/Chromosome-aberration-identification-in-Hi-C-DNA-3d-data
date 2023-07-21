@@ -46,10 +46,9 @@ remove_isolated_nodes(graph = G)
 node_embeddings(graph = G, file_name = 'node_embeddings.txt', D = 10, WL = 300, NW = 10, P = 1, Q = 0.5)
 
 # Retrieve the node embeddings from a .txt file
-node_embedding_dict = embedding_dictionary(file_name = 'node_embeddings.txt')
+node_embedding_values = embedding_list(file_name = 'node_embeddings.txt')
 
 # Retrieve cluster labels using the HDBSCAN algorithm
-node_embedding_values = list(node_embedding_dict.values())
 cluster_labels = clustering_HDBSCAN(embedding = node_embedding_values)
 
 # Perform dimensionality reduction using PCA
