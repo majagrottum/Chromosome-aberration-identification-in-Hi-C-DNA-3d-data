@@ -240,6 +240,19 @@ def test_noise_label(embedding):
 
 
 
-  
+def test_PCA_datatype(embedding):
 
-def test_principal_component_analysis():
+  """This function tests that the output from the principal_component_analysis function is of the correct data type (numpy array)."""
+
+  transformed_embedding = principal_component_analysis(embedding)
+
+  assert isinstance(transformed_embedding, np.ndarray), "Test failed: The transformed embedding should be a numpy array."
+
+
+
+
+
+
+
+
+  
