@@ -1,3 +1,6 @@
+import os
+
+
 def test_create_graph_output_type(filename, splitting):
 
   """This function tests if the output of the create_graph function is an undirected graph or a subclass of nx.Graph."""
