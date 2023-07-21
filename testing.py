@@ -123,8 +123,6 @@ def test_no_isolated_nodes():
 
 
 
-def test_remove_isolated_nodes():
-
 def test_node_embeddings():
 
 def test_embedding_list():
